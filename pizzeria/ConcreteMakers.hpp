@@ -55,6 +55,6 @@ public:
 
     void addBread()
     {
-        product->setCheese(white);
+        product->setBread(white);
     }
 };

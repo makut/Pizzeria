@@ -1,5 +1,6 @@
 # pragma once
 # include <string>
+# include <iostream>
 
 enum Sauce 
 {
@@ -36,30 +37,61 @@ private:
     Topping top_;
 public:
     Product() : cost_(0) {}
-    int getCost() const
-    {
-        return cost_;
-    }
 
     std::string getName() const
     {
         return name_;
     }
 
-    void setName(std::string name) : name_(name) {}
-
-    void setPrice(int new_price) : cost_(new_price) {}
+    int getCost() const
     {
-        cost = new_price;
+        return cost_;
+    }
+
+    Sauce getSauce()
+    {
+        return sauce_;
+    }
+
+    Base getBase()
+    {
+        return base_;
+    }
+
+    Topping getTopping()
+    {
+        return top_;
+    }
+
+    void setName(std::string name)
+    {
+        name_ = name;
+    }
+
+    void setPrice(int new_price)
+    {
+        cost_ = new_price;
     }
 
     virtual ~Product();
 
-    void setSauce(Sauce sauce) : sauce_(sauce) {}
+    void setSauce(Sauce sauce)
+    {
+        sauce_ = sauce;
+    }
 
-    void setBase(Base base) : base_(base) {}
+    void setBase(Base base)
+    {
+        base_ = base;
+    }
 
-    void setTop(Topping top) : top_(top) {}
+    void setTop(Topping top)
+    {
+        top_ = top;
+    }
+
+    virtual void setCheese(Cheese) {}
+    virtual void setBread(Bread) {}
 };
 
 Product::~Product(){}
@@ -69,7 +101,15 @@ class Pizza : public Product
 private:
     Cheese cheese_;
 public:
-    void setCheese(Cheese cheese) : cheese_(cheese) {}
+    Cheese getCheese()
+    {
+        return cheese_;
+    }
+
+    void setCheese(Cheese cheese)
+    {
+        cheese_ = cheese;
+    }
 };
 
 class Sandwich : public Product
@@ -77,5 +117,13 @@ class Sandwich : public Product
 private:
     Bread bread_;
 public:
-    void setBread(Bread bread) : bread_(bread) {}
+    Bread getBread()
+    {
+        return bread_;
+    }
+
+    void setBread(Bread bread)
+    {
+        bread_ = bread;
+    }
 };
