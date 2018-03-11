@@ -6,27 +6,27 @@ class HawaiiPizzaMaker : public PizzaMaker
 public:
     void nameProduct()
     {
-        product->setName("HawaiiPizza");
+        name_ = "HawaiiPizza";
     }
 
     void addSauce()
     {
-        product->setSauce(tomato);
+        sauce_ = tomato;
     }
 
     void addBase()
     {
-        product->setBase(ham);
+        base_ = ham;
     }
 
     void addTopping()
     {
-        product->setTop(ananas);
+        top_ = ananas;
     }
 
     void addCheese()
     {
-        product->setCheese(mozzarella);
+        cheese_ = mozzarella;
     }
 };
 
@@ -35,26 +35,26 @@ class ChickenSandwichMaker : public SandwichMaker
 public:
     void nameProduct()
     {
-
+        name_ = "ChickenSandwich";
     }
 
     void addSauce()
     {
-        product->setSauce(cheesy);
+        sauce_ = cheesy;
     }
 
     void addBase()
     {
-        product->setBase(chicken);
+        base_ = chicken;
     }
 
     void addTopping()
     {
-        product->setTop(olive);
+        top_ = olive;
     }
 
     void addBread()
     {
-        product->setBread(white);
+        bread_ = white;
     }
 };

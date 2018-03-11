@@ -1,6 +1,7 @@
 # pragma once
 # include <string>
 # include <iostream>
+# include <memory>
 
 enum Sauce 
 {
@@ -30,13 +31,15 @@ enum Cheese
 class Product
 {
 private:
-    std::string name_;
-    int cost_;
-    Sauce sauce_;
-    Base base_;
-    Topping top_;
+    const std::string name_;
+    const int cost_;
+    const Sauce sauce_;
+    const Base base_;
+    const Topping top_;
 public:
-    Product() : cost_(0) {}
+    Product(const std::string &name, int cost, Sauce sauce, Base base, Topping top) : name_(name), cost_(cost),
+                                                                                      sauce_(sauce), base_(base),
+                                                                                      top_(top) {}
 
     std::string getName() const
     {
@@ -48,50 +51,24 @@ public:
         return cost_;
     }
 
-    Sauce getSauce()
+    Sauce getSauce() const
     {
         return sauce_;
     }
 
-    Base getBase()
+    Base getBase() const
     {
         return base_;
     }
 
-    Topping getTopping()
+    Topping getTopping() const
     {
         return top_;
     }
 
-    void setName(std::string name)
-    {
-        name_ = name;
-    }
-
-    void setPrice(int new_price)
-    {
-        cost_ = new_price;
-    }
-
     virtual ~Product();
 
-    void setSauce(Sauce sauce)
-    {
-        sauce_ = sauce;
-    }
-
-    void setBase(Base base)
-    {
-        base_ = base;
-    }
-
-    void setTop(Topping top)
-    {
-        top_ = top;
-    }
-
-    virtual void setCheese(Cheese) {}
-    virtual void setBread(Bread) {}
+    friend void serveDish(const std::shared_ptr<Product>&);
 };
 
 Product::~Product(){}
@@ -99,31 +76,34 @@ Product::~Product(){}
 class Pizza : public Product
 {
 private:
-    Cheese cheese_;
+    const Cheese cheese_;
 public:
-    Cheese getCheese()
+    Pizza(const std::string &name, int cost, Sauce sauce,
+           Base base, Topping top, Cheese cheese) : Product(name, cost, sauce, base, top),
+                                                    cheese_(cheese) {}
+
+    Cheese getCheese() const
     {
         return cheese_;
-    }
-
-    void setCheese(Cheese cheese)
-    {
-        cheese_ = cheese;
     }
 };
 
 class Sandwich : public Product
 {
 private:
-    Bread bread_;
+    const Bread bread_;
 public:
-    Bread getBread()
+    Sandwich(const std::string &name, int cost, Sauce sauce, 
+             Base base, Topping top, Bread bread) : Product(name, cost, sauce, base, top),
+                                                    bread_(bread) {}
+
+    Bread getBread() const
     {
         return bread_;
     }
-
-    void setBread(Bread bread)
-    {
-        bread_ = bread;
-    }
 };
+
+void serveDish(const std::shared_ptr<Product> &prod)
+{
+    std::cout << "Served " << prod->name_ << "\n";
+}

@@ -1,11 +1,11 @@
-# include "/home/makut/MIPT/TP/2/pizzeria/Pizzeria.hpp"
+# include "pizzeria/Pizzeria.hpp"
 # include <gtest/gtest.h>
 
 TEST(PizzaTest, HawaiiPizza)
 {
     testing::internal::CaptureStdout();
     HawaiiPizzaMaker maker;
-    maker.Construct();
+    maker.construct();
     std::shared_ptr<Product> result = maker.getResult();
     EXPECT_EQ(testing::internal::GetCapturedStdout(), "Baking HawaiiPizza\n");
     EXPECT_EQ(result->getName(), "HawaiiPizza");
@@ -17,7 +17,7 @@ TEST(PizzaTest, HawaiiPizza)
 TEST(StuffTest, CleanerTest)
 {
     testing::internal::CaptureStdout();
-    FirstShift *brigade;
+    std::shared_ptr<StuffBrigade> brigade(new FirstShift);
     brigade->createCleaner();
     brigade->makeClean();
     EXPECT_EQ(testing::internal::GetCapturedStdout(), "First Shift Cleaner hired\nClean completed\n");
@@ -26,8 +26,8 @@ TEST(StuffTest, CleanerTest)
 TEST(StuffTest, CashierTest)
 {
     testing::internal::CaptureStdout();
-    SecondShift *brigade;
+    std::shared_ptr<StuffBrigade> brigade(new SecondShift);
     brigade->createCashier();
     brigade->makeOrder(new HawaiiPizzaMaker);
-    EXPECT_EQ(testing::internal::GetCapturedStdout(), "Second Shift Cashier hired\nBaking HawaiiPizza");
+    EXPECT_EQ(testing::internal::GetCapturedStdout(), "Second Shift Cashier hired\nBaking HawaiiPizza\nServed HawaiiPizza\nOrder finished\n");
 }

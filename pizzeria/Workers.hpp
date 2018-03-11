@@ -15,8 +15,8 @@ public:
 
     void conductOrder()
     {
-        maker_->Construct();
-        maker_->getResult();
+        maker_->construct();
+        serveDish(maker_->getResult());
         std::cout << "Order finished\n";
     }
 };
